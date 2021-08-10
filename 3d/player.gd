@@ -6,7 +6,7 @@ var acceleration = 10
 var speed = 3
 var y_velocity = 0
 var gravity = 20
-var angular_acceleration = 7
+var angular_acceleration = 6
 onready var animations = $player_animations/AnimationTree.get("parameters/playback")
 onready var mesh = $player_animations
 
