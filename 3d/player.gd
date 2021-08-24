@@ -7,8 +7,11 @@ var speed = 3
 var y_velocity = 0
 var gravity = 20
 var angular_acceleration = 6
+var gun_show = false
+onready var gun = $player_animations/character/Skeleton/BoneAttachment/gun
 onready var animations = $player_animations/AnimationTree.get("parameters/playback")
 onready var mesh = $player_animations
+var selected = "nothing"
 
 func _physics_process(delta):
 	
@@ -31,6 +34,16 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+	
+	if Input.is_action_just_pressed("gun"):
+		selected = "gun"
+	if Input.is_action_just_pressed("hand"):
+		selected = "nothing"
+		
+	if selected == "nothing":
+		gun.hide()
+	elif selected == "gun":
+		gun.show()
 	
 	mesh.rotation.y = lerp_angle(mesh.rotation.y, atan2(direction.x, direction.z), delta * angular_acceleration)
 	

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://dark_material.tres" type="Material" id=1]
 [ext_resource path="res://red_material.tres" type="Material" id=2]
 [ext_resource path="res://player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://blasterA.obj" type="ArrayMesh" id=4]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="world" type="Spatial"]
 
@@ -149,3 +152,24 @@ transform = Transform( 0.847666, -0.36193, -0.387903, 0.13176, -0.564634, 0.8147
 shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.57151 )
+
+[node name="Skeleton" parent="player/player_animations/character" index="0"]
+bones/24/bound_children = [ NodePath("BoneAttachment") ]
+
+[node name="BoneAttachment" type="BoneAttachment" parent="player/player_animations/character/Skeleton" index="2"]
+transform = Transform( 0.627611, -0.0877254, 0.773568, 0.636828, 0.629414, -0.445293, -0.447832, 0.772099, 0.450896, 0.302297, 0.378198, -0.73869 )
+bone_name = "mixamorig_left_hand_index_4"
+
+[node name="gun" type="MeshInstance" parent="player/player_animations/character/Skeleton/BoneAttachment"]
+transform = Transform( -0.791956, 0.594353, -0.139799, 0.129721, -0.0599522, -0.989741, -0.596639, -0.801962, -0.0296195, 0.0574706, 0.0760529, -0.0916948 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+
+[node name="AnimationTree" parent="player/player_animations" index="2"]
+parameters/playback = SubResource( 1 )
+
+[editable path="player"]
